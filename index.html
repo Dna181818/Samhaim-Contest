@@ -18,6 +18,7 @@
       justify-content: center;
       align-items: center;
       font-family: 'Creepster', cursive;
+      flex-direction: column;
     }
 
     .form-container {
@@ -27,8 +28,7 @@
       width: 90%;
       max-width: 420px;
       color: white;
-      margin-top: 50px;
-
+      margin-top: 20px;
     }
 
     input {
@@ -74,7 +74,7 @@
       <input type="text" id="warlock" name="warlock" placeholder="Favorite male男 costume" required>
       
       <label for="witch">Witch女:</label>
-      <input type="text" id="witch" name="witch" placeholder="Favorite female女　costume" required>
+      <input type="text" id="witch" name="witch" placeholder="Favorite female女 costume" required>
       
       <button type="submit">!!Vote!!</button>
     </form>
@@ -88,7 +88,7 @@
       const warlock = document.getElementById('warlock').value;
       const witch = document.getElementById('witch').value;
 
-      // Save submission data privately (localStorage for now, this will not be visible to others)
+      // Save submission data privately (localStorage for now)
       let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
       submissions.push({ name: name, warlock: warlock, witch: witch });
       localStorage.setItem('submissions', JSON.stringify(submissions));
@@ -98,6 +98,15 @@
       // Clear the form after submission
       document.getElementById('warlock-witch-form').reset();
     });
+
+    // Function to retrieve and log the submissions privately
+    function viewSubmissionsPrivately() {
+      const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+      console.log('Private Submissions:', submissions);
+    }
+
+    // Automatically log submissions when the page loads (only visible to you in the console)
+    viewSubmissionsPrivately();
   </script>
 
 </body>
