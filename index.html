@@ -5,61 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Warlock & Witch Registration</title>
   <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
-
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-image: url('background.png'); /* Ensure this file exists */
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Creepster', cursive;
-      flex-direction: column;
-    }
-
-    .form-container {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 420px;
-      color: white;
-      margin-top: 20px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      border: none;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #8d1111;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .form-container {
-        width: 80%;
-      }
-    }
+    body { margin: 0; padding: 0; background: #000; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Creepster', cursive; }
+    .form-container { background-color: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 10px; width: 90%; max-width: 420px; color: white; }
+    input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+    button { width: 100%; padding: 10px; background-color: #8d1111; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #45a049; }
   </style>
 </head>
 <body>
@@ -68,60 +19,42 @@
     <h2>Best Costume</h2>
     <form id="warlock-witch-form">
       <label for="name">Your Name:</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="name" required>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
       
       <label for="warlock">Warlock男:</label>
-      <input type="text" id="warlock" name="warlock" placeholder="Favorite male男 costume" autocomplete="off" required>
+      <input type="text" id="warlock" name="warlock" placeholder="Favorite male男 costume" required>
       
       <label for="witch">Witch女:</label>
-      <input type="text" id="witch" name="witch" placeholder="Favorite female女 costume" autocomplete="off" required>
+      <input type="text" id="witch" name="witch" placeholder="Favorite female女 costume" required>
       
       <button type="submit">!!Vote!!</button>
     </form>
   </div>
 
   <script>
-    // Function to handle form submission
     document.getElementById('warlock-witch-form').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent the form from refreshing the page
+      event.preventDefault();
 
-      // Get form values
       const name = document.getElementById('name').value;
       const warlock = document.getElementById('warlock').value;
       const witch = document.getElementById('witch').value;
 
-      // Log form values to ensure they're being captured
-      console.log('Form Submitted:', { name, warlock, witch });
+      console.log('Form values:', { name, warlock, witch });  // Log the form values
 
-      // Retrieve existing submissions from localStorage, or initialize an empty array
       let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-      
+      console.log('Existing submissions:', submissions);  // Log existing submissions
+
       // Add the new submission
       submissions.push({ name: name, warlock: warlock, witch: witch });
 
-      // Log the updated array to ensure it's being updated
-      console.log('Updated Submissions Array:', submissions);
-
-      // Save the updated submissions back to localStorage
+      // Save the updated submissions array
       localStorage.setItem('submissions', JSON.stringify(submissions));
 
-      // Confirm data was saved
-      console.log('Data saved to localStorage:', localStorage.getItem('submissions'));
+      // Log the saved submissions to verify
+      console.log('Updated submissions saved:', localStorage.getItem('submissions'));
 
-      alert('Thank you for voting!');
-
-      // Clear the form after submission
-      document.getElementById('warlock-witch-form').reset();
+      document.getElementById('warlock-witch-form').reset();  // Reset the form
     });
-
-    // Function to view submissions privately (run this in the browser console)
-    function viewSubmissionsPrivately() {
-      const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-      console.log('Private Submissions:', submissions);
-    }
-
-    // Example of calling viewSubmissionsPrivately automatically when page loads (optional)
-    // viewSubmissionsPrivately();
   </script>
 
 </body>
