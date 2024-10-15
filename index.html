@@ -90,14 +90,23 @@
       const warlock = document.getElementById('warlock').value;
       const witch = document.getElementById('witch').value;
 
+      // Log form values to ensure they're being captured
+      console.log('Form Submitted:', { name, warlock, witch });
+
       // Retrieve existing submissions from localStorage, or initialize an empty array
       let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-
+      
       // Add the new submission
       submissions.push({ name: name, warlock: warlock, witch: witch });
 
+      // Log the updated array to ensure it's being updated
+      console.log('Updated Submissions Array:', submissions);
+
       // Save the updated submissions back to localStorage
       localStorage.setItem('submissions', JSON.stringify(submissions));
+
+      // Confirm data was saved
+      console.log('Data saved to localStorage:', localStorage.getItem('submissions'));
 
       alert('Thank you for voting!');
 
