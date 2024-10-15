@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warlock & Witch Registration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('background.png'); /* Add your background image URL */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Creepster', cursive;
+    }
+
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 420px;
+      color: white;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #8d1111;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .form-container {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Best Costume</h2>
+    <form id="warlock-witch-form">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      
+      <label for="warlock">Warlock男:</label>
+      <input type="text" id="warlock" name="warlock" placeholder="Write something for Warlock男" required>
+      
+      <label for="witch">Witch女:</label>
+      <input type="text" id="witch" name="witch" placeholder="Write something for Witch女" required>
+      
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('warlock-witch-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const warlock = document.getElementById('warlock').value;
+      const witch = document.getElementById('witch').value;
+
+      // Save submission data privately (localStorage for now, this will not be visible to others)
+      let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+      submissions.push({ name: name, warlock: warlock, witch: witch });
+      localStorage.setItem('submissions', JSON.stringify(submissions));
+
+      alert('Thank you for registering!');
+      
+      // Clear the form after submission
+      document.getElementById('warlock-witch-form').reset();
+    });
+  </script>
+
+</body>
+</html>
