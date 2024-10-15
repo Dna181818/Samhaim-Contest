@@ -10,8 +10,8 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: black; /* For better performance on mobile */
-      background-image: url('background.png'); /* Ensure this file exists */
+      background-color: black;
+      background-image: url('background.png');
       background-size: cover;
       background-position: center;
       height: 100vh;
@@ -31,7 +31,7 @@
       max-width: 420px;
     }
 
-    input {
+    input, button {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -41,28 +41,13 @@
     }
 
     button {
-      width: 100%;
-      padding: 10px;
       background-color: #8d1111;
       color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2rem;
       cursor: pointer;
     }
 
     button:hover {
       background-color: #45a049;
-    }
-
-    /* Mobile-First Styles */
-    @media (max-width: 768px) {
-      .form-container {
-        width: 100%;
-      }
-      input, button {
-        font-size: 1.2rem; /* Adjust font size for mobile readability */
-      }
     }
   </style>
 </head>
@@ -84,42 +69,48 @@
     </form>
   </div>
 
-  <script>
-    document.getElementById('warlock-witch-form').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent page reload
+  <!-- Import Firebase SDK for Web -->
+  <script type="module">
+    // Import Firebase SDK functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 
-      // Capture form values
+    // Your Firebase configuration (from Firebase Console)
+    const firebaseConfig = {
+      apiKey: "AIzaSyA4G182qDWb3QlgWtFjLWQEvEO0AukaV_0",
+      authDomain: "samhain-d2416.firebaseapp.com",
+      projectId: "samhain-d2416",
+      storageBucket: "samhain-d2416.appspot.com",
+      messagingSenderId: "147457557069",
+      appId: "1:147457557069:web:d4b1e16730775c9a411204",
+      measurementId: "G-32SQS48MLK"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Handle form submission
+    document.getElementById('warlock-witch-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get form values
       const name = document.getElementById('name').value;
       const warlock = document.getElementById('warlock').value;
       const witch = document.getElementById('witch').value;
 
-      // Log for mobile testing/debugging
-      console.log('Form Values:', { name, warlock, witch });
+      // Create a new vote reference in the Realtime Database
+      const votesRef = ref(database, 'votes');
+      push(votesRef, {
+        name: name,
+        warlock: warlock,
+        witch: witch
+      });
 
-      // Get or initialize submission array in localStorage
-      let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-
-      // Add new submission to the array
-      submissions.push({ name: name, warlock: warlock, witch: witch });
-
-      // Save updated submissions to localStorage
-      localStorage.setItem('submissions', JSON.stringify(submissions));
-
-      // Confirm the data was saved
-      console.log('Saved Submissions:', localStorage.getItem('submissions'));
-
-      // Display success message (you can adjust this to your liking)
+      // Display a confirmation message
       alert('Thank you for voting!');
-
-      // Reset the form after submission
       document.getElementById('warlock-witch-form').reset();
     });
-
-    // Optional function to view the submissions (test this in mobile console)
-    function viewSubmissions() {
-      const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-      console.log('All Submissions:', submissions);
-    }
   </script>
 
 </body>
