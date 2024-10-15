@@ -10,7 +10,7 @@
     body {
       margin: 0;
       padding: 0;
-      background-image: url('background.png'); /* Add your background image URL */
+      background-image: url('background.png'); /* Ensure this file exists */
       background-size: cover;
       background-position: center;
       height: 100vh;
@@ -68,45 +68,51 @@
     <h2>Best Costume</h2>
     <form id="warlock-witch-form">
       <label for="name">Your Name:</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      <input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="name" required>
       
       <label for="warlock">Warlock男:</label>
-      <input type="text" id="warlock" name="warlock" placeholder="Favorite male男 costume" required>
+      <input type="text" id="warlock" name="warlock" placeholder="Favorite male男 costume" autocomplete="off" required>
       
       <label for="witch">Witch女:</label>
-      <input type="text" id="witch" name="witch" placeholder="Favorite female女 costume" required>
+      <input type="text" id="witch" name="witch" placeholder="Favorite female女 costume" autocomplete="off" required>
       
       <button type="submit">!!Vote!!</button>
     </form>
   </div>
 
   <script>
+    // Function to handle form submission
     document.getElementById('warlock-witch-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      
+      event.preventDefault(); // Prevent the form from refreshing the page
+
+      // Get form values
       const name = document.getElementById('name').value;
       const warlock = document.getElementById('warlock').value;
       const witch = document.getElementById('witch').value;
 
-      // Save submission data privately (localStorage for now)
+      // Retrieve existing submissions from localStorage, or initialize an empty array
       let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+
+      // Add the new submission
       submissions.push({ name: name, warlock: warlock, witch: witch });
+
+      // Save the updated submissions back to localStorage
       localStorage.setItem('submissions', JSON.stringify(submissions));
 
-      alert('Thank you for registering!');
-      
+      alert('Thank you for voting!');
+
       // Clear the form after submission
       document.getElementById('warlock-witch-form').reset();
     });
 
-    // Function to retrieve and log the submissions privately
+    // Function to view submissions privately (run this in the browser console)
     function viewSubmissionsPrivately() {
       const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
       console.log('Private Submissions:', submissions);
     }
 
-    // Automatically log submissions when the page loads (only visible to you in the console)
-    viewSubmissionsPrivately();
+    // Example of calling viewSubmissionsPrivately automatically when page loads (optional)
+    // viewSubmissionsPrivately();
   </script>
 
 </body>
